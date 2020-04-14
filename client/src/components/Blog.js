@@ -1,11 +1,26 @@
-import React from "react";
+import React, {useContext} from "react";
 import { withStyles } from "@material-ui/core/styles";
-// import { Paper } from "@material-ui/core";
-
+import { Paper } from "@material-ui/core";
+import NoContent from './Pin/NoContent'
+import CreatePin from './Pin/CreatePin'
+import Context from '../context'
 const Blog = ({ classes }) => {
-  return <div>Blog</div>;
-};
+  const {state} = useContext(Context)
+  const {draft} = state
+  
+  let Blogcontent;
 
+  if(!draft){
+    Blogcontent = NoContent
+  } else if (draft) {
+    Blogcontent = CreatePin
+  }
+  return ( 
+    <Paper className={classes.root}>
+      <Blogcontent />
+    </Paper>
+  )
+}
 const styles = {
   root: {
     minWidth: 350,
@@ -15,7 +30,7 @@ const styles = {
     display: "flex",
     justifyContent: "center"
   },
-  rootMobile: {
+  rootMobile: { 
     maxWidth: "100%",
     maxHeight: 300,
     overflowX: "hidden",
